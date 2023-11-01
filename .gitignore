@@ -2,3 +2,4 @@ client/node_modules
 venv
 faiss_vectorstore
 .env
+visitor_data.db
