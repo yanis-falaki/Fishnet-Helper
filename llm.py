@@ -9,12 +9,17 @@ def start():
     embeddings = OpenAIEmbeddings()
     storeEmbeddings(embeddings=embeddings)
 
-
 def getResponse(qa, question):
-    return qa.run(f"""You are a chatbot providing helpful information on how to use the Fishnet Networking framework, fishnet is a multiplayer framework for the unity game engine.
+    prompt = f"""You are a chatbot providing helpful information on how to use the Fishnet Networking framework, fishnet is a multiplayer framework for the unity game engine.
                  All your answers should be clear and understandable, and if the situation fits, provide code examples. You absolutely under no circumstances can make up information.
                   
-                  Question: {question}""")
+                  Question: {question}"""
+    response = qa({"query": prompt})
+    sources = set([doc.metadata["source"] for doc in response["source_documents"]])
+    formatted_response = (
+        f"{response['result']} \n\n {create_sources_string(sources)}"
+    )
+    return formatted_response
     
 
 def storeEmbeddings(embeddings):
@@ -29,6 +34,16 @@ def loadDocuments():
     textSplitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50, separator="\n")
     docs = textSplitter.split_documents(documents=documents)
     return docs
+
+def create_sources_string(source_urls) -> str:
+    if not source_urls:
+        return ""
+    sources_list = list(source_urls)
+    sources_list.sort()
+    sources_string = "sources:\n"
+    for i, source in enumerate(sources_list):
+        sources_string += f"{i+1}. {source}\n"
+    return sources_string
 
 
 if __name__ == "__main__":

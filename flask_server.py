@@ -16,7 +16,7 @@ CORS(app)
 load_dotenv("./.env")
 embeddings = OpenAIEmbeddings()
 new_vectorstore = faiss.FAISS.load_local("./faiss_vectorstore", embeddings)
-qa = RetrievalQA.from_chain_type(llm=OpenAI(), chain_type="stuff", retriever=new_vectorstore.as_retriever())
+qa = RetrievalQA.from_chain_type(llm=OpenAI(), chain_type="stuff", retriever=new_vectorstore.as_retriever(), return_source_documents=True)
 
 db_connection = sqlite3.connect("visitor_data.db")
 db_global_cursor = db_connection.cursor()
