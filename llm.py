@@ -17,7 +17,7 @@ def getResponse(qa, question):
     response = qa({"query": prompt})
     sources = set([doc.metadata["source"] for doc in response["source_documents"]])
     formatted_response = (
-        f"{response['result']} \n\n {create_sources_string(sources)}"
+        f"{response['result']} <br/><br/> {create_sources_string(sources)}"
     )
     return formatted_response
     
@@ -40,9 +40,9 @@ def create_sources_string(source_urls) -> str:
         return ""
     sources_list = list(source_urls)
     sources_list.sort()
-    sources_string = "sources:\n"
+    sources_string = "Sources:<br/>"
     for i, source in enumerate(sources_list):
-        sources_string += f"{i+1}. {source}\n"
+        sources_string += f"{i+1}. {source}<br/>"
     return sources_string
 
 
