@@ -5,9 +5,7 @@
 0. Run `pip install -r requirements.txt`.
 
 1. Create a `.env` file in the root directory and add the following environment variable:
-OPENAI_API_KEY=[Your OpenAI API Key]
-
-Replace `[Your OpenAI API Key]` with your actual OpenAI API key obtained from your OpenAI account.
+`OPENAI_API_KEY=[Your OpenAI API Key]`.
 
 2. Run `llm.py` to generate the initial knowledge database.
 
@@ -19,4 +17,4 @@ Replace `[Your OpenAI API Key]` with your actual OpenAI API key obtained from yo
 
 2. Change the domain in the function getResponse to use whatever domain your backend is hosted on.
 
-3. Deploy the react app user whichever service/method you normally would use.
+3. Deploy the react app using whichever service/method you normally would use.
